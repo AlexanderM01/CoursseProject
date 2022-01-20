@@ -7,82 +7,68 @@ using System.Drawing;
 
 namespace WindowsFormsApp2
 {
-    public class Particle
+    public class Particle //Класс частиц
     {
-        public int Radius; // радиус частицы
-        public float X; // X координата положения частицы в пространстве
-        public float Y; // Y координата положения частицы в пространстве
+        public int Radius; //Радиус частицы
+        public float X; //X координата положения частицы в пространстве
+        public float Y; //Y координата положения частицы в пространстве
 
-        public float SpeedX; // скорость перемещения по оси X
-        public float SpeedY; // скорость перемещения по оси Y
-        public float Life; // запас здоровья частицы
-        // добавили генератор случайных чисел
-        public static Random rand = new Random();
+        public float SpeedX; //Скорость пермещения по X
+        public float SpeedY; //Скорость пермещения по Y
 
-        // конструктор по умолчанию будет создавать кастомную частицу
-        public Particle()
+        public float Life; // здоровье частицы
+        public static Random rand = new Random();//Генератор случайных чисел
+
+        public Color FromColor;
+        public Color ToColor;
+
+        public Color color1;
+        public Color color2;
+
+        public Particle() //Констуруктор, который создаёт кастомную частицу
         {
-            // генерируем произвольное направление и скорость
-            var direction = (double)rand.Next(360);
-            var speed = 1 + rand.Next(10);
+            var direction = (double)rand.Next(360);//
+            var speed = 1 + rand.Next(10);// Скорость от 1 до 11
 
-            // рассчитываем вектор скорости
             SpeedX = (float)(Math.Cos(direction / 180 * Math.PI) * speed);
             SpeedY = -(float)(Math.Sin(direction / 180 * Math.PI) * speed);
-
-            // а это не трогаем
-            Radius = 2 + rand.Next(10);
-            Life = 20 + rand.Next(100);
+            Radius = 2 + rand.Next(10);// Радиус от 2 до 12
+            Life = 20 + rand.Next(100);// Запас здоровья от 20 до 120
         }
+
+        //virtual чтобы переопределять функцию
         public virtual void Draw(Graphics g)
         {
+            float k = Math.Min(1f, Life / 100);//коэф прозрачности от 0 до 1.0
+            int alpha = (int)(k * 255);//значение альфа от 0 до 255
+                                       //задание прозрачности
+            var color = Color.FromArgb(alpha, Color.Black);//привязываем к увету прозрачность
+
+            var b = new SolidBrush(color); //Кисть для рисования
+            g.FillEllipse(b, X - Radius, Y - Radius, Radius * 2, Radius * 2);//Создание залитого круга с радиусом и центром X, Y
+            b.Dispose();//Сборщик мусора, удаление кисти из памяти
+        }
+    }
+    public class ParticleColorful : Particle
+    {
+
+        public static Color MixColor(Color color1, Color color2, float k)
+        {
+            return Color.FromArgb(
+                (int)(color2.A * k + color1.A * (1 - k)),
+                (int)(color2.R * k + color1.R * (1 - k)),
+                (int)(color2.G * k + color1.G * (1 - k)),
+                (int)(color2.B * k + color1.B * (1 - k))
+                );
+        }
+        public override void Draw(Graphics g)
+        {
             float k = Math.Min(1f, Life / 100);
-            // рассчитываем значение альфа канала в шкале от 0 до 255
-            // по аналогии с RGB, он используется для задания прозрачности
-            int alpha = (int)(k * 255);
-
-            // создаем цвет из уже существующего, но привязываем к нему еще и значение альфа канала
-            var color = Color.FromArgb(alpha, Color.Black);
+            var color = MixColor(color1, color2, k);
             var b = new SolidBrush(color);
-
-            // нарисовали залитый кружок радиусом Radius с центром в X, Y
             g.FillEllipse(b, X - Radius, Y - Radius, Radius * 2, Radius * 2);
-
-
             b.Dispose();
         }
     }
-        public class ParticleColorful : Particle
-        {
-            // два новых поля под цвет начальный и конечный
-            public Color FromColor;
-            public Color ToColor;
-
-            // для смеси цветов
-            public static Color MixColor(Color color1, Color color2, float k)
-            {
-                return Color.FromArgb(
-                    (int)(color2.A * k + color1.A * (1 - k)),
-                    (int)(color2.R * k + color1.R * (1 - k)),
-                    (int)(color2.G * k + color1.G * (1 - k)),
-                    (int)(color2.B * k + color1.B * (1 - k))
-                );
-            }
-
-            // ну и отрисовку перепишем
-            public override void Draw(Graphics g)
-            {
-                float k = Math.Min(1f, Life / 100);
-
-                // так как k уменьшается от 1 до 0, то порядок цветов обратный
-                var color = MixColor(ToColor, FromColor, k);
-                var b = new SolidBrush(color);
-
-                g.FillEllipse(b, X - Radius, Y - Radius, Radius * 2, Radius * 2);
-
-                b.Dispose();
-            }
-        }
-
-    }
+}
 
