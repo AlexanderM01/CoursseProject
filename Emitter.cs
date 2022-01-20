@@ -28,7 +28,14 @@ namespace WindowsFormsApp2
 
         public Color ColorFrom = Color.White; // начальный цвет частицы
         public Color ColorTo = Color.FromArgb(0, Color.Black); // конечный цвет частиц
+        public virtual Particle CreateParticle()
+        {
+            var particle = new ParticleColorful();
+            particle.FromColor = ColorFrom;
+            particle.ToColor = ColorTo;
 
+            return particle;
+        }
         public void UpdateState()
         {
             foreach (var particle in particles)
@@ -57,13 +64,8 @@ namespace WindowsFormsApp2
             {
                 if (particles.Count < ParticlesCount)
                 {
-                    /* ну и тут чуток подкрутили */
-                    var particle = new ParticleColorful();
-                    particle.FromColor = Color.White;
-                    particle.ToColor = Color.FromArgb(0, Color.Black);
-
-                    ResetParticle(particle); // добавили вызов ResetParticle
-
+                    var particle = CreateParticle(); // и собственно теперь тут его вызываем
+                    ResetParticle(particle);
                     particles.Add(particle);
                 }
                 else
@@ -75,19 +77,22 @@ namespace WindowsFormsApp2
         public int ParticlesCount = 500;
         public virtual void ResetParticle(Particle particle)
         {
-            particle.Life = 20 + Particle.rand.Next(100);
-            particle.X = MousePositionX;
-            particle.Y = MousePositionY;
+            particle.Life = Particle.rand.Next(LifeMin, LifeMax);
 
-            var direction = (double)Particle.rand.Next(360);
-            var speed = 1 + Particle.rand.Next(10);
+            particle.X = X;
+            particle.Y = Y;
+
+            var direction = Direction
+                + (double)Particle.rand.Next(Spreading)
+                - Spreading / 2;
+
+            var speed = Particle.rand.Next(SpeedMin, SpeedMax);
 
             particle.SpeedX = (float)(Math.Cos(direction / 180 * Math.PI) * speed);
             particle.SpeedY = -(float)(Math.Sin(direction / 180 * Math.PI) * speed);
 
-            particle.Radius = 2 + Particle.rand.Next(10);
+            particle.Radius = Particle.rand.Next(RadiusMin, RadiusMax);
         }
-
         public void Render(Graphics g)
         {
             // это не трогаем
