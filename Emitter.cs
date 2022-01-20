@@ -10,7 +10,7 @@ namespace WindowsFormsApp2
    public class Emitter
     {
         public float GravitationX = 0;
-        public float GravitationY = 1; 
+        public float GravitationY = 0; 
         List<Particle> particles = new List<Particle>();
         public int MousePositionX;
         public int MousePositionY;
@@ -42,18 +42,16 @@ namespace WindowsFormsApp2
                 }
                 else
                 {
-                    // сделаем сначала для одной точки
-                    // и так считаем вектор притяжения к точке
-                    float gX = gravityPoints[0].X - particle.X;
-                    float gY = gravityPoints[0].Y - particle.Y;
+                    foreach (var point in gravityPoints)
+                    {
+                        float gX = point.X - particle.X;
+                        float gY = point.Y - particle.Y;
+                        float r2 = gX * gX + gY * gY;
+                        float M = 100;
 
-                    // считаем квадрат расстояния между частицей и точкой r^2
-                    float r2 = gX * gX + gY * gY;
-                    float M = 100; // сила притяжения к точке, пусть 100 будет
-
-                    // пересчитываем вектор скорости с учетом притяжения к точке
-                    particle.SpeedX += (gX) * M / r2;
-                    particle.SpeedY += (gY) * M / r2;
+                        particle.SpeedX += (gX) * M / r2;
+                        particle.SpeedY += (gY) * M / r2;
+                    }
                     // гравитация воздействует на вектор скорости, поэтому пересчитываем его
                     particle.SpeedX += GravitationX;
                     particle.SpeedY += GravitationY;
