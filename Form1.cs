@@ -14,10 +14,8 @@ namespace WindowsFormsApp2
     {
         public Form1()
         {
-
             InitializeComponent();
             picDisplay.Image = new Bitmap(picDisplay.Width, picDisplay.Height);
-
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -25,6 +23,9 @@ namespace WindowsFormsApp2
 
         }
 
-        
+        private void picDisplay_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }
