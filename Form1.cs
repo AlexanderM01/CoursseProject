@@ -43,6 +43,7 @@ namespace WindowsFormsApp2
             counter++; // увеличиваю значение счетчика каждый вызов
             using (var g = Graphics.FromImage(picDisplay.Image))
             {
+                g.Clear(Color.White); // добавил очистку
                 // рисую на изображении сколько насчитал
                 g.DrawString(
                     counter.ToString(), // значения счетчика в виде строки
@@ -55,6 +56,7 @@ namespace WindowsFormsApp2
                     }
                 );
             }
+            picDisplay.Invalidate();
         }
     }
 }
