@@ -14,6 +14,7 @@ namespace WindowsFormsApp2
         List<Particle> particles = new List<Particle>();
         public int MousePositionX;
         public int MousePositionY;
+        public List<Point> gravityPoints = new List<Point>(); // тут буду хранится точки притяжения
 
         public void UpdateState()
         {
@@ -71,10 +72,22 @@ namespace WindowsFormsApp2
 
         public void Render(Graphics g)
         {
-            
+            // это не трогаем
             foreach (var particle in particles)
             {
                 particle.Draw(g);
+            }
+
+            // рисую точки притяжения красными кружочками
+            foreach (var point in gravityPoints)
+            {
+                g.FillEllipse(
+                    new SolidBrush(Color.Red),
+                    point.X - 5,
+                    point.Y - 5,
+                    10,
+                    10
+                );
             }
         }
     }

@@ -18,6 +18,9 @@ namespace WindowsFormsApp2
         {
             InitializeComponent();
             picDisplay.Image = new Bitmap(picDisplay.Width, picDisplay.Height);
+            emitter.gravityPoints.Add(new Point(
+            picDisplay.Width / 2, picDisplay.Height / 2
+        ));
         }
 
         private void Form1_Load(object sender, EventArgs e)
