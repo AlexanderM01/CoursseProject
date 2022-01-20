@@ -43,15 +43,11 @@ namespace WindowsFormsApp2
 
             picDisplay.Invalidate();
         }
-
-        private int MousePositionX = 0;
-        private int MousePositionY = 0;
-
         private void picDisplay_MouseMove(object sender, MouseEventArgs e)
         {
             // в обработчике заносим положение мыши в переменные для хранения положения мыши
-            MousePositionX = e.X;
-            MousePositionY = e.Y;
+            emitter.MousePositionX = e.X;
+            emitter.MousePositionY = e.Y;
         }
     }
     }
