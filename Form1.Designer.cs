@@ -86,7 +86,7 @@ namespace WindowsFormsApp2
             // 
             // tbRazbros
             // 
-            this.tbRazbros.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
+            this.tbRazbros.BackColor = System.Drawing.Color.White;
             this.tbRazbros.Location = new System.Drawing.Point(3, 99);
             this.tbRazbros.Maximum = 359;
             this.tbRazbros.Name = "tbRazbros";
@@ -106,8 +106,8 @@ namespace WindowsFormsApp2
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
-            this.label1.Location = new System.Drawing.Point(4, 0);
+            this.label1.BackColor = System.Drawing.Color.White;
+            this.label1.Location = new System.Drawing.Point(0, 0);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(97, 17);
             this.label1.TabIndex = 5;
@@ -116,8 +116,8 @@ namespace WindowsFormsApp2
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(224)))), ((int)(((byte)(192)))));
-            this.label2.Location = new System.Drawing.Point(4, 79);
+            this.label2.BackColor = System.Drawing.Color.White;
+            this.label2.Location = new System.Drawing.Point(3, 79);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(63, 17);
             this.label2.TabIndex = 6;
@@ -125,7 +125,7 @@ namespace WindowsFormsApp2
             // 
             // tbGraviton
             // 
-            this.tbGraviton.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.tbGraviton.BackColor = System.Drawing.Color.White;
             this.tbGraviton.Location = new System.Drawing.Point(3, 178);
             this.tbGraviton.Maximum = 100;
             this.tbGraviton.Name = "tbGraviton";
@@ -136,7 +136,7 @@ namespace WindowsFormsApp2
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(192)))));
+            this.label3.BackColor = System.Drawing.Color.White;
             this.label3.Location = new System.Drawing.Point(1, 158);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(90, 17);
@@ -154,7 +154,7 @@ namespace WindowsFormsApp2
             // 
             // tbSchet
             // 
-            this.tbSchet.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.tbSchet.BackColor = System.Drawing.Color.White;
             this.tbSchet.Location = new System.Drawing.Point(4, 255);
             this.tbSchet.Maximum = 100;
             this.tbSchet.Name = "tbSchet";
@@ -166,7 +166,7 @@ namespace WindowsFormsApp2
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(255)))), ((int)(((byte)(255)))));
+            this.label5.BackColor = System.Drawing.Color.White;
             this.label5.Location = new System.Drawing.Point(4, 235);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(113, 17);
@@ -182,10 +182,13 @@ namespace WindowsFormsApp2
             // 
             // splitContainer1.Panel1
             // 
+            this.splitContainer1.Panel1.BackColor = System.Drawing.Color.White;
             this.splitContainer1.Panel1.Controls.Add(this.label7);
+            this.splitContainer1.Panel1.Paint += new System.Windows.Forms.PaintEventHandler(this.splitContainer1_Panel1_Paint);
             // 
             // splitContainer1.Panel2
             // 
+            this.splitContainer1.Panel2.BackColor = System.Drawing.SystemColors.Window;
             this.splitContainer1.Panel2.Controls.Add(this.label4);
             this.splitContainer1.Panel2.Controls.Add(this.label6);
             this.splitContainer1.Panel2.Controls.Add(this.checkBox2);
@@ -205,6 +208,7 @@ namespace WindowsFormsApp2
             this.splitContainer1.Panel2.Controls.Add(this.lblDirection);
             this.splitContainer1.Panel2.Controls.Add(this.tbRazbros);
             this.splitContainer1.Panel2.Controls.Add(this.tbGraviton);
+            this.splitContainer1.Panel2.Paint += new System.Windows.Forms.PaintEventHandler(this.splitContainer1_Panel2_Paint);
             this.splitContainer1.Size = new System.Drawing.Size(186, 570);
             this.splitContainer1.SplitterDistance = 58;
             this.splitContainer1.TabIndex = 16;
@@ -214,12 +218,12 @@ namespace WindowsFormsApp2
             this.label7.AutoSize = true;
             this.label7.BackColor = System.Drawing.SystemColors.ButtonHighlight;
             this.label7.Font = new System.Drawing.Font("Goudy Stout", 10.2F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label7.ForeColor = System.Drawing.Color.Orange;
-            this.label7.Location = new System.Drawing.Point(0, 23);
+            this.label7.ForeColor = System.Drawing.Color.Black;
+            this.label7.Location = new System.Drawing.Point(28, 20);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(183, 23);
+            this.label7.Size = new System.Drawing.Size(112, 23);
             this.label7.TabIndex = 0;
-            this.label7.Text = "Параметры частиц";
+            this.label7.Text = "Параметры";
             this.label7.Click += new System.EventHandler(this.label7_Click);
             // 
             // label4
@@ -235,7 +239,7 @@ namespace WindowsFormsApp2
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.label6.BackColor = System.Drawing.Color.White;
             this.label6.Location = new System.Drawing.Point(4, 313);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(136, 17);
@@ -255,7 +259,7 @@ namespace WindowsFormsApp2
             // 
             // tbTick
             // 
-            this.tbTick.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(192)))), ((int)(((byte)(0)))));
+            this.tbTick.BackColor = System.Drawing.Color.White;
             this.tbTick.Location = new System.Drawing.Point(5, 333);
             this.tbTick.Maximum = 100;
             this.tbTick.Minimum = 10;
@@ -290,7 +294,7 @@ namespace WindowsFormsApp2
             // button2
             // 
             this.button2.Font = new System.Drawing.Font("Goudy Stout", 10.2F, System.Drawing.FontStyle.Underline, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button2.ForeColor = System.Drawing.SystemColors.Highlight;
+            this.button2.ForeColor = System.Drawing.SystemColors.ControlText;
             this.button2.Location = new System.Drawing.Point(3, 395);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(159, 35);
@@ -310,8 +314,8 @@ namespace WindowsFormsApp2
             // 
             // tbDirection
             // 
-            this.tbDirection.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(192)))), ((int)(((byte)(192)))));
-            this.tbDirection.Location = new System.Drawing.Point(6, 20);
+            this.tbDirection.BackColor = System.Drawing.Color.White;
+            this.tbDirection.Location = new System.Drawing.Point(5, 20);
             this.tbDirection.Maximum = 359;
             this.tbDirection.Name = "tbDirection";
             this.tbDirection.Size = new System.Drawing.Size(160, 56);
