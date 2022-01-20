@@ -12,6 +12,7 @@ namespace WindowsFormsApp2
 {
     public partial class Form1 : Form
     {
+        List<Particle> particles = new List<Particle>();
         public Form1()
         {
             InitializeComponent();
@@ -20,12 +21,40 @@ namespace WindowsFormsApp2
 
         private void Form1_Load(object sender, EventArgs e)
         {
-
+            // генерирую 500 частиц
+            for (var i = 0; i < 500; ++i)
+            {
+                var particle = new Particle();
+                // переношу частицы в центр изображения
+                particle.X = picDisplay.Image.Width / 2;
+                particle.Y = picDisplay.Image.Height / 2;
+                // добавляю список
+                particles.Add(particle);
+            }
         }
 
         private void picDisplay_Click(object sender, EventArgs e)
         {
 
+        }
+        int counter = 0; // добавлю счетчик чтобы считать вызовы функции
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            counter++; // увеличиваю значение счетчика каждый вызов
+            using (var g = Graphics.FromImage(picDisplay.Image))
+            {
+                // рисую на изображении сколько насчитал
+                g.DrawString(
+                    counter.ToString(), // значения счетчика в виде строки
+                    new Font("Arial", 12), // шрифт
+                    new SolidBrush(Color.Black), // цвет
+                    new PointF
+                    { // по центру экрана
+                    X = picDisplay.Image.Width / 2,
+                        Y = picDisplay.Image.Height / 2
+                    }
+                );
+            }
         }
     }
 }
