@@ -21,18 +21,7 @@ namespace WindowsFormsApp2
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            // генерирую 500 частиц
-            for (var i = 0; i < 500; ++i)
-            {
-                var particle = new Particle();
-                // переношу частицы в центр изображения
-                particle.X = picDisplay.Image.Width / 2;
-                particle.Y = picDisplay.Image.Height / 2;
-                // добавляю список
-                particles.Add(particle);
-            }
         }
-
         private void picDisplay_Click(object sender, EventArgs e)
         {
 
@@ -41,25 +30,49 @@ namespace WindowsFormsApp2
         {
             foreach (var particle in particles)
             {
-                particle.Life -= 1; // уменьшаю здоровье
-                                    // если здоровье кончилось
+                particle.Life -= 1;  // не трогаем
                 if (particle.Life < 0)
                 {
-                    // восстанавливаю здоровье
+                    // тоже не трогаем
                     particle.Life = 20 + Particle.rand.Next(100);
-                    // перемещаю частицу в центр
-                    particle.X = picDisplay.Image.Width / 2;
-                    particle.Y = picDisplay.Image.Height / 2;
-                    particle.Direction = Particle.rand.Next(360);
-                    particle.Speed = 1 + Particle.rand.Next(10);
+                    particle.X = MousePositionX;
+                    particle.Y = MousePositionY;                 
+
+                    /* ЭТО ДОБАВЛЯЮ, тут сброс состояния частицы */
+                    var direction = (double)Particle.rand.Next(360);
+                    var speed = 1 + Particle.rand.Next(10);
+
+                    particle.SpeedX = (float)(Math.Cos(direction / 180 * Math.PI) * speed);
+                    particle.SpeedY = -(float)(Math.Sin(direction / 180 * Math.PI) * speed);
+                    /* конец ЭТО ДОБАВЛЯЮ  */
+
+                    // это не трогаем
                     particle.Radius = 2 + Particle.rand.Next(10);
                 }
                 else
+                {                  
+                    // и добавляем новый, собственно он даже проще становится, 
+                    // так как теперь мы храним вектор скорости в явном виде и его не надо пересчитывать
+                    particle.X += particle.SpeedX;
+                    particle.Y += particle.SpeedY;
+                }
+            }
+            for (var i = 0; i < 10; ++i)
+            {
+                if (particles.Count < 500)
                 {
-                    // а это наш старый код
-                    var directionInRadians = particle.Direction / 180 * Math.PI;
-                    particle.X += (float)(particle.Speed * Math.Cos(directionInRadians));
-                    particle.Y -= (float)(particle.Speed * Math.Sin(directionInRadians));
+                    // а у тут уже наш новый класс используем
+                    var particle = new ParticleColorful();
+                    // ну и цвета меняем
+                    particle.FromColor = Color.Yellow;
+                    particle.ToColor = Color.FromArgb(0, Color.Magenta);
+                    particle.X = MousePositionX;
+                    particle.Y = MousePositionY;
+                    particles.Add(particle);
+                }
+                else
+                {
+                    break;
                 }
             }
         }
@@ -76,17 +89,26 @@ namespace WindowsFormsApp2
 
         private void timer1_Tick(object sender, EventArgs e)
         {
-            UpdateState(); // каждый тик обновляем систему
+            UpdateState();
 
             using (var g = Graphics.FromImage(picDisplay.Image))
             {
-                g.Clear(Color.White);
-                Render(g); // рендерим систему
+                g.Clear(Color.Black); // А ЕЩЕ ЧЕРНЫЙ ФОН СДЕЛАЮ
+                Render(g);
             }
 
             picDisplay.Invalidate();
         }
 
+        private int MousePositionX = 0;
+        private int MousePositionY = 0;
+
+        private void picDisplay_MouseMove(object sender, MouseEventArgs e)
+        {
+            // в обработчике заносим положение мыши в переменные для хранения положения мыши
+            MousePositionX = e.X;
+            MousePositionY = e.Y;
+        }
     }
     }
 
