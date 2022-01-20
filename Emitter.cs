@@ -10,7 +10,7 @@ namespace WindowsFormsApp2
    public class Emitter
     {
         public float GravitationX = 0;
-        public float GravitationY = 0; 
+        public float GravitationY = 1; 
         List<Particle> particles = new List<Particle>();
         public int MousePositionX;
         public int MousePositionY;
@@ -25,7 +25,7 @@ namespace WindowsFormsApp2
         public int RadiusMax = 10; // максимальный радиус частицы
         public int LifeMin = 20; // минимальное время жизни частицы
         public int LifeMax = 100; // максимальное время жизни частицы
-
+        public int ParticlesPerTick = 1; // добавил новое поле
         public Color ColorFrom = Color.White; // начальный цвет частицы
         public Color ColorTo = Color.FromArgb(0, Color.Black); // конечный цвет частиц
         public virtual Particle CreateParticle()
@@ -37,16 +37,25 @@ namespace WindowsFormsApp2
             return particle;
         }
         public void UpdateState()
-        {
-            foreach (var particle in particles)
+{
+         int particlesToCreate = ParticlesPerTick; // фиксируем счетчик сколько частиц нам создавать за тик
+
+           foreach (var particle in particles)
+           {
+            if (particle.Life <= 0) // если частицы умерла
             {
-                particle.Life -= 1;
-                if (particle.Life < 0)
-                {
-                    ResetParticle(particle); // заменили этот блок на вызов сброса частицы 
-                }
+            /* 
+             * то проверяем надо ли создать частицу
+             */   
+             if (particlesToCreate > 0) 
+             {
+                /* у нас как сброс частицы равносилен созданию частицы */
+                particlesToCreate -= 1; // поэтому уменьшаем счётчик созданных частиц на 1
+                ResetParticle(particle);
+             }
+            }
                 else                
-                    {
+                {
                     foreach (var point in impactPoints)
                     {
                         point.ImpactParticle(particle);
@@ -58,20 +67,17 @@ namespace WindowsFormsApp2
                     particle.X += particle.SpeedX;
                     particle.Y += particle.SpeedY;
                 }
-            }
+           }
 
-            for (var i = 0; i < 10; ++i)
+            // второй цикл меняем на while, 
+            // этот новый цикл также будет срабатывать только в самом начале работы эмиттера
+            // собственно пока не накопится критическая масса частиц
+            while (particlesToCreate >= 1)
             {
-                if (particles.Count < ParticlesCount)
-                {
-                    var particle = CreateParticle(); // и собственно теперь тут его вызываем
-                    ResetParticle(particle);
-                    particles.Add(particle);
-                }
-                else
-                {
-                    break;
-                }
+                particlesToCreate -= 1;
+                var particle = CreateParticle();
+                ResetParticle(particle);
+                particles.Add(particle);
             }
         }
         public int ParticlesCount = 500;
