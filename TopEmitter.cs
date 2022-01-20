@@ -3,24 +3,23 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Drawing;
 
 namespace WindowsFormsApp2
 {
-    public class TopEmitter : Emitter
+    class TopEmitter : Emitter
     {
-        public int Width; // длина экрана
+        public int Width;//длина экрана
 
         public override void ResetParticle(Particle particle)
         {
-            base.ResetParticle(particle); // вызываем базовый сброс частицы, там жизнь переопределяется и все такое
+            base.ResetParticle(particle);//базовый сброс частицы
 
-            // а теперь тут уже подкручиваем параметры движения
-            particle.X = Particle.rand.Next(Width); // позиция X -- произвольная точка от 0 до Width
-            particle.Y = 0;  // ноль -- это верх экрана 
+            //Параметры движения
+            particle.X = Particle.rand.Next(Width);
+            particle.Y = 0;//Вверх экрана
 
-            particle.SpeedY = 1; // падаем вниз по умолчанию
-            particle.SpeedX = Particle.rand.Next(-2, 2); // разброс влево и вправа у частиц 
+            particle.SpeedY = 1;//падаем вниз
+            particle.SpeedX = Particle.rand.Next(-2, 2);//разброс влево и вправа у частиц
         }
     }
 }

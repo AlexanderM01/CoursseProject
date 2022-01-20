@@ -221,7 +221,7 @@ namespace WindowsFormsApp2
         private void checkBox2_CheckedChanged(object sender, EventArgs e)
         {
             sp = new SoundPlayer();
-            sp.Stream = Properties.Resources.Jingle;
+            
             CheckBox checkBox1 = (CheckBox)sender; // приводим отправителя к элементу типа CheckBox
             if (checkBox1.Checked)
             {
@@ -246,6 +246,11 @@ namespace WindowsFormsApp2
         private void label4_Click(object sender, EventArgs e)
         {
             label4.Text = $"{emitter.ParticlesPerTick}";
+        }
+
+        private void label5_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }
