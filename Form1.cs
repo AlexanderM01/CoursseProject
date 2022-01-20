@@ -113,9 +113,12 @@ namespace WindowsFormsApp2
             point1.Power = tbGraviton.Value;
         }
 
-        private void tbGraviton2_Scroll(object sender, EventArgs e)
+        private void tbRazbros_Scroll(object sender, EventArgs e)
         {
-            point2.Power = tbGraviton2.Value;
+            emitter.Spreading = tbRazbros.Value;
+            lblRazbros.Text = $"{tbRazbros.Value}°";
+
+
         }
     }
     }

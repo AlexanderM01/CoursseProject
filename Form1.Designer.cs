@@ -36,11 +36,12 @@ namespace WindowsFormsApp2
             this.label1 = new System.Windows.Forms.Label();
             this.lblDirection = new System.Windows.Forms.Label();
             this.tbGraviton = new System.Windows.Forms.TrackBar();
-            this.tbGraviton2 = new System.Windows.Forms.TrackBar();
+            this.tbRazbros = new System.Windows.Forms.TrackBar();
+            this.lblRazbros = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.picDisplay)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tbDirection)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.tbGraviton)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tbGraviton2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tbRazbros)).BeginInit();
             this.SuspendLayout();
             // 
             // picDisplay
@@ -97,21 +98,31 @@ namespace WindowsFormsApp2
             this.tbGraviton.TabIndex = 4;
             this.tbGraviton.Scroll += new System.EventHandler(this.tbGraviton_Scroll);
             // 
-            // tbGraviton2
+            // tbRazbros
             // 
-            this.tbGraviton2.Location = new System.Drawing.Point(471, 481);
-            this.tbGraviton2.Maximum = 100;
-            this.tbGraviton2.Name = "tbGraviton2";
-            this.tbGraviton2.Size = new System.Drawing.Size(161, 56);
-            this.tbGraviton2.TabIndex = 5;
-            this.tbGraviton2.Scroll += new System.EventHandler(this.tbGraviton2_Scroll);
+            this.tbRazbros.Location = new System.Drawing.Point(471, 481);
+            this.tbRazbros.Maximum = 100;
+            this.tbRazbros.Name = "tbRazbros";
+            this.tbRazbros.Size = new System.Drawing.Size(161, 56);
+            this.tbRazbros.TabIndex = 5;
+            this.tbRazbros.Scroll += new System.EventHandler(this.tbRazbros_Scroll);
+            // 
+            // lblRazbros
+            // 
+            this.lblRazbros.AutoSize = true;
+            this.lblRazbros.Location = new System.Drawing.Point(499, 461);
+            this.lblRazbros.Name = "lblRazbros";
+            this.lblRazbros.Size = new System.Drawing.Size(63, 17);
+            this.lblRazbros.TabIndex = 6;
+            this.lblRazbros.Text = "Разброс";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(841, 549);
-            this.Controls.Add(this.tbGraviton2);
+            this.Controls.Add(this.lblRazbros);
+            this.Controls.Add(this.tbRazbros);
             this.Controls.Add(this.tbGraviton);
             this.Controls.Add(this.lblDirection);
             this.Controls.Add(this.label1);
@@ -123,7 +134,7 @@ namespace WindowsFormsApp2
             ((System.ComponentModel.ISupportInitialize)(this.picDisplay)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tbDirection)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.tbGraviton)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.tbGraviton2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tbRazbros)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -137,7 +148,8 @@ namespace WindowsFormsApp2
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label lblDirection;
         private System.Windows.Forms.TrackBar tbGraviton;
-        private System.Windows.Forms.TrackBar tbGraviton2;
+        private System.Windows.Forms.TrackBar tbRazbros;
+        private System.Windows.Forms.Label lblRazbros;
     }
 }
 
