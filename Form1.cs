@@ -221,7 +221,7 @@ namespace WindowsFormsApp2
         private void checkBox2_CheckedChanged(object sender, EventArgs e)
         {
             sp = new SoundPlayer();
-            
+            sp.Stream = Properties.Resources._1;
             CheckBox checkBox1 = (CheckBox)sender; // приводим отправителя к элементу типа CheckBox
             if (checkBox1.Checked)
             {
