@@ -12,35 +12,44 @@ namespace WindowsFormsApp2
 {
     public partial class Form1 : Form
     {
-        List<Particle> particles = new List<Particle>();
-        Emitter emitter = new Emitter(); // добавили эмиттер
+        Emitter emitter; // тут убрали явное создание
+
         public Form1()
         {
             InitializeComponent();
             picDisplay.Image = new Bitmap(picDisplay.Width, picDisplay.Height);
-            // гравитон
+
+            // а тут теперь вручную создаем
+            emitter = new TopEmitter
+            {
+                Width = picDisplay.Width,
+                GravitationY = 0.25f
+            };
+
+    
             emitter.impactPoints.Add(new GravityPoint
             {
                 X = (float)(picDisplay.Width * 0.25),
                 Y = picDisplay.Height / 2
             });
 
-            // в центре антигравитон
             emitter.impactPoints.Add(new AntiGravityPoint
             {
                 X = picDisplay.Width / 2,
                 Y = picDisplay.Height / 2
             });
 
-            // снова гравитон
             emitter.impactPoints.Add(new GravityPoint
             {
                 X = (float)(picDisplay.Width * 0.75),
                 Y = picDisplay.Height / 2
             });
+            
         }
 
-        private void Form1_Load(object sender, EventArgs e)
+        /* ... */
+
+    private void Form1_Load(object sender, EventArgs e)
         {
         }
         private void picDisplay_Click(object sender, EventArgs e)

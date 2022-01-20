@@ -18,53 +18,39 @@ namespace WindowsFormsApp2
 
         public void UpdateState()
         {
-
             foreach (var particle in particles)
             {
-                particle.Life -= 1;  
+                particle.Life -= 1;
                 if (particle.Life < 0)
                 {
-                    
-                    particle.Life = 20 + Particle.rand.Next(100);
-                    particle.X = MousePositionX;
-                    particle.Y = MousePositionY;
-
-                    /*сброс состояния частицы */
-                    var direction = (double)Particle.rand.Next(360);
-                    var speed = 1 + Particle.rand.Next(10);
-
-                    particle.SpeedX = (float)(Math.Cos(direction / 180 * Math.PI) * speed);
-                    particle.SpeedY = -(float)(Math.Sin(direction / 180 * Math.PI) * speed);
-                    
-
-                    
-                    particle.Radius = 2 + Particle.rand.Next(10);
+                    ResetParticle(particle); // заменили этот блок на вызов сброса частицы 
                 }
-                else
-                {
+                else                
+                    {
                     foreach (var point in impactPoints)
                     {
                         point.ImpactParticle(particle);
                     }
-                    // гравитация воздействует на вектор скорости, поэтому пересчитываем его
+                    // это не трогаем
                     particle.SpeedX += GravitationX;
                     particle.SpeedY += GravitationY;
-                    // так как теперь мы храним вектор скорости в явном виде и его не надо пересчитывать
+
                     particle.X += particle.SpeedX;
                     particle.Y += particle.SpeedY;
                 }
             }
+
             for (var i = 0; i < 10; ++i)
             {
                 if (particles.Count < 500)
                 {
-                    // а у тут уже наш новый класс используем
+                    /* ну и тут чуток подкрутили */
                     var particle = new ParticleColorful();
-                    // ну и цвета меняем
-                    particle.FromColor = Color.Yellow;
-                    particle.ToColor = Color.FromArgb(0, Color.Magenta);
-                    particle.X = MousePositionX;
-                    particle.Y = MousePositionY;
+                    particle.FromColor = Color.White;
+                    particle.ToColor = Color.FromArgb(0, Color.Black);
+
+                    ResetParticle(particle); // добавили вызов ResetParticle
+
                     particles.Add(particle);
                 }
                 else
