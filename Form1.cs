@@ -67,6 +67,22 @@ namespace WindowsFormsApp2
             emitter.MousePositionX = e.X;
             emitter.MousePositionY = e.Y;
         }
+
+        private void tbDirection_Scroll(object sender, EventArgs e)
+        {
+            emitter.Direction = tbDirection.Value;
+            lblDirection.Text = $"{tbDirection.Value}°"; // добавил вывод значения
+        }
+
+        private void label1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblDirection_Click(object sender, EventArgs e)
+        {
+
+        }
     }
     }
 
