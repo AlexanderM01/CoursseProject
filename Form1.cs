@@ -15,6 +15,9 @@ namespace WindowsFormsApp2
         List<Emitter> emitters = new List<Emitter>();
         Emitter emitter;
 
+        GravityPoint point1; // добавил поле под первую точку
+        GravityPoint point2; // добавил поле под вторую точку
+
         public Form1()
         {
             InitializeComponent();
@@ -34,6 +37,21 @@ namespace WindowsFormsApp2
             };
 
             emitters.Add(this.emitter); // все равно добавляю в список emitters, чтобы он рендерился и обновлялся
+                                        // привязываем гравитоны к полям
+            point1 = new GravityPoint
+            {
+                X = picDisplay.Width / 2 + 100,
+                Y = picDisplay.Height / 2,
+            };
+            point2 = new GravityPoint
+            {
+                X = picDisplay.Width / 2 - 100,
+                Y = picDisplay.Height / 2,
+            };
+
+            // привязываем поля к эмиттеру
+            emitter.impactPoints.Add(point1);
+            emitter.impactPoints.Add(point2);
         }
 
         
@@ -63,12 +81,18 @@ namespace WindowsFormsApp2
         }
         private void picDisplay_MouseMove(object sender, MouseEventArgs e)
         {
-            // в обработчике заносим положение мыши в переменные для хранения положения мыши
-            emitter.MousePositionX = e.X;
-            emitter.MousePositionY = e.Y;
-        }
+            // это не трогаем
+            foreach (var emitter in emitters)
+            {
+                emitter.MousePositionX = e.X;
+                emitter.MousePositionY = e.Y;
+            }
 
-        private void tbDirection_Scroll(object sender, EventArgs e)
+            // а тут передаем положение мыши, в положение гравитона
+            point2.X = e.X;
+            point2.Y = e.Y;
+        }
+            private void tbDirection_Scroll(object sender, EventArgs e)
         {
             emitter.Direction = tbDirection.Value;
             lblDirection.Text = $"{tbDirection.Value}°"; // добавил вывод значения
@@ -82,6 +106,16 @@ namespace WindowsFormsApp2
         private void lblDirection_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void tbGraviton_Scroll(object sender, EventArgs e)
+        {
+            point1.Power = tbGraviton.Value;
+        }
+
+        private void tbGraviton2_Scroll(object sender, EventArgs e)
+        {
+            point2.Power = tbGraviton2.Value;
         }
     }
     }
