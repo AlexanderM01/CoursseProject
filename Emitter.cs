@@ -14,7 +14,7 @@ namespace WindowsFormsApp2
         List<Particle> particles = new List<Particle>();
         public int MousePositionX;
         public int MousePositionY;
-        public List<Point> gravityPoints = new List<Point>(); // тут буду хранится точки притяжения
+        public List<IImpactPoint> impactPoints = new List<IImpactPoint>();
 
         public void UpdateState()
         {
@@ -42,15 +42,9 @@ namespace WindowsFormsApp2
                 }
                 else
                 {
-                    foreach (var point in gravityPoints)
+                    foreach (var point in impactPoints)
                     {
-                        float gX = point.X - particle.X;
-                        float gY = point.Y - particle.Y;
-                        float r2 = (float)Math.Max(100, gX * gX + gY * gY);
-                        float M = 100;
-
-                        particle.SpeedX += (gX) * M / r2;
-                        particle.SpeedY += (gY) * M / r2;
+                        point.ImpactParticle(particle);
                     }
                     // гравитация воздействует на вектор скорости, поэтому пересчитываем его
                     particle.SpeedX += GravitationX;
@@ -89,15 +83,10 @@ namespace WindowsFormsApp2
             }
 
             // рисую точки притяжения красными кружочками
-            foreach (var point in gravityPoints)
+            foreach (var point in impactPoints) 
             {
-                g.FillEllipse(
-                    new SolidBrush(Color.Red),
-                    point.X - 5,
-                    point.Y - 5,
-                    10,
-                    10
-                );
+                
+                point.Render(g); // это добавили
             }
         }
     }
