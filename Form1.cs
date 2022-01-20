@@ -50,6 +50,9 @@ namespace WindowsFormsApp2
                     // перемещаю частицу в центр
                     particle.X = picDisplay.Image.Width / 2;
                     particle.Y = picDisplay.Image.Height / 2;
+                    particle.Direction = Particle.rand.Next(360);
+                    particle.Speed = 1 + Particle.rand.Next(10);
+                    particle.Radius = 2 + Particle.rand.Next(10);
                 }
                 else
                 {
